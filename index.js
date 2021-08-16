@@ -7,15 +7,16 @@ const fs = require('fs');
 const path = require("path");
 const rimraf = require("rimraf");
 const app = express()
-const port = 3000
 let configPath = path.join(__dirname, 'config.json')
-let config = {key: null}
+let config = {key: '', port: 3000, maxWidth: 4000, maxHeight: 4000, maxUrlLength: 200}
 if(fs.existsSync(configPath)) {
     config = JSON.parse(fs.readFileSync(configPath).toString())
 }
 
-if(!fs.existsSync(configPath) || config.key == null || config.key.length < 5){
-    if(config.key.length < 5){
+if(!fs.existsSync(configPath) || config.key.length < 5){
+    if(config.key === ''){
+        console.log('Key is empty. Generating new one')
+    }else if(config.key.length < 5){
         console.log('Key is too short. Generating new one.')
     }
 
@@ -27,6 +28,7 @@ if(!fs.existsSync(configPath) || config.key == null || config.key.length < 5){
     let content = JSON.stringify(config)
     fs.writeFileSync(configPath, content)
 }
+const port = config.port
 
 app.get('/', (req, res) => {
     let query = req.query
@@ -34,15 +36,15 @@ app.get('/', (req, res) => {
         res.status(400).send(JSON.stringify({'status': 'error', 'msg': 'invalid url'}))
     } else {
         let url = query.url
-        if(url.length > 200){
+        if(url.length > config.maxUrlLength){
             res.status(400).send(JSON.stringify({'status': 'error', 'msg': 'url too long. Max 200 characters'}))
             return;
         }
         let width = Number.parseInt(query.width || 0)
         let height = Number.parseInt(query.height || 0)
         let resize = (query.resize || 'cover').toLowerCase()
-        if(width > 4000) width = 4000
-        if(height > 4000) height = 4000
+        if(width > config.maxWidth) width = config.maxWidth
+        if(height > config.maxHeight) height = config.maxHeight
         let gravity = (query.gravity || 'center').toLowerCase()
         let format = (query.format || 'jpg').toLowerCase()
         if(resize !== 'cover' && resize !== 'contain' && resize !== 'fill' && resize !== 'inside' && resize !== 'outside'){
@@ -112,5 +114,5 @@ app.get('/clearcache/:key', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`ImageResizer app listening at http://localhost:${port}`)
+  console.log(`ImageResizer app listening at 127.0.0.1:${port}`)
 })
