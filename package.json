@@ -1,0 +1,18 @@
+{
+  "name": "imageresize",
+  "version": "0.1.0",
+  "description": "Image resizer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fran",
+  "license": "ISC",
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "express": "^4.17.1",
+    "image-url-validator": "^1.0.4",
+    "rimraf": "^3.0.2",
+    "sharp": "^0.28.3"
+  }
+}
