@@ -28,7 +28,7 @@ if(!fs.existsSync(configPath) || config.key.length < 5){
     let content = JSON.stringify(config)
     fs.writeFileSync(configPath, content)
 }
-const port = config.port
+const port = process.env.PORT || config.port
 
 app.get('/', (req, res) => {
     let query = req.query
