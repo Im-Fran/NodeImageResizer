@@ -1,6 +1,9 @@
 # NodeImageResizer
 Node Image Resizer with Sharp. If you find any bug feel free to open a new issue. (This is my first node project so I'm sorry if you don't like it :p)
 
+Example url: http://imfran-node-image-resizer.herokuapp.com/?url=https://www.nasa.gov/sites/default/files/thumbnails/image/pia22228.jpg&width=386&height=450&resize=cover
+![](http://imfran-node-image-resizer.herokuapp.com/?url=https://www.nasa.gov/sites/default/files/thumbnails/image/pia22228.jpg&width=386&height=450&resize=cover)
+
 # How to setup
 1. Make sure you got node and npm installed.
 2. Clone the repo
