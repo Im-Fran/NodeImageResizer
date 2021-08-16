@@ -34,6 +34,10 @@ app.get('/', (req, res) => {
         res.status(400).send(JSON.stringify({'status': 'error', 'msg': 'invalid url'}))
     } else {
         let url = query.url
+        if(url.length > 200){
+            res.status(400).send(JSON.stringify({'status': 'error', 'msg': 'url too long. Max 200 characters'}))
+            return;
+        }
         let width = Number.parseInt(query.width || 0)
         let height = Number.parseInt(query.height || 0)
         let resize = (query.resize || 'cover').toLowerCase()
