@@ -59,6 +59,10 @@ app.get('/', (req, res) => {
             res.status(400).send(JSON.stringify({'status': 'error', 'msg': `invalid format '${format}'`}))
             return;
         }
+        let cacheDir = path.join(__dirname, 'cache')
+        if(!fs.existsSync(cacheDir)){
+            fs.mkdirSync(cacheDir)
+        }
         let fileName = md5(url + ':' + width + ':' + height + ':' + resize + ':' + gravity).toString() + '.' + format
         let filePath = path.join(__dirname, 'cache', fileName)
         if(fs.existsSync(filePath)){
