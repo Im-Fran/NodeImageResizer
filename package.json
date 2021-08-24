@@ -17,5 +17,8 @@
   },
   "engines": {
     "node": "16.x"
+  },
+  "config": {
+   "libvips": "8.11.0" 
   }
 }
