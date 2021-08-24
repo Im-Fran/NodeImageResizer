@@ -75,7 +75,7 @@ app.get('/', (req, res) => {
                             res.status(400).send(JSON.stringify({'status': 'error', 'msg': 'invalid url'}))
                         }else{
                             try{
-                                sharp(body)
+                                sharp(Buffer.from(body))
                                     .resize({
                                         width: width > 0 ? width : null,
                                         height: height > 0 ? height : null,
