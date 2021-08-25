@@ -82,10 +82,8 @@ app.get('/', (req, res) => {
                                         fit: resize,
                                         gravity: gravity,
                                     })
-                                    .toFormat(format)
-                                    .toBuffer()
-                                    .then(buffer => {
-                                        fs.writeFileSync(filePath, buffer)
+                                    .toFile(filePath)
+                                    .then(_ => {
                                         res.sendFile(filePath)
                                     }).catch(err2 => {
                                         console.log(err2)
